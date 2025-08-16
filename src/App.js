@@ -1,6 +1,3 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Login from './components/auth/Login';
 import Dashboard from './pages/Dashboard';
 import AuthGuard from './components/auth/AuthGuard';
 import NotFound from './pages/NotFound';
