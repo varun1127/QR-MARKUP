@@ -1,0 +1,209 @@
+/* Base Styles */
+:root {
+  --primary-color: #3498db;
+  --secondary-color: #2980b9;
+  --success-color: #2ecc71;
+  --warning-color: #f39c12;
+  --danger-color: #e74c3c;
+  --light-color: #ecf0f1;
+  --dark-color: #2c3e50;
+  --gray-color: #95a5a6;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background-color: #f5f7fa;
+  color: #333;
+  line-height: 1.6;
+}
+
+/* Layout */
+.app-container {
+  display: flex;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+  padding: 20px;
+  margin-left: 250px; /* Sidebar width */
+}
+
+@media (max-width: 768px) {
+  .main-content {
+    margin-left: 0;
+    padding: 15px;
+  }
+}
+
+/* Buttons */
+button {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: var(--secondary-color);
+}
+
+button:disabled {
+  background-color: var(--gray-color);
+  cursor: not-allowed;
+}
+
+.generate-qr-btn {
+  background-color: var(--success-color);
+}
+
+.generate-qr-btn:hover {
+  background-color: #27ae60;
+}
+
+.scan-button {
+  background-color: var(--primary-color);
+  padding: 12px 20px;
+  font-size: 16px;
+  margin: 20px 0;
+}
+
+/* Status Indicators */
+.status-box {
+  padding: 15px;
+  border-radius: 6px;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  margin: 10px 0;
+  max-width: 300px;
+}
+
+.status-present {
+  background-color: var(--success-color);
+}
+
+.status-late {
+  background-color: var(--warning-color);
+}
+
+.status-absent {
+  background-color: var(--danger-color);
+}
+
+.status-not-marked {
+  background-color: var(--gray-color);
+}
+
+/* Tables */
+.logs-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+.logs-table th, .logs-table td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.logs-table th {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.logs-table tr:hover {
+  background-color: #f5f5f5;
+}
+
+.status-present {
+  color: var(--success-color);
+}
+
+.status-late {
+  color: var(--warning-color);
+}
+
+.status-absent {
+  color: var(--danger-color);
+}
+
+/* QR Scanner */
+.qr-scanner-container {
+  max-width: 500px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.scanner-viewport {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  margin: 20px auto;
+  border: 3px solid var(--primary-color);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.scanner-video {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Forms */
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 600;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+/* Error Messages */
+.error-message {
+  color: var(--danger-color);
+  background-color: #fadbd8;
+  padding: 10px;
+  border-radius: 4px;
+  margin: 10px 0;
+  border-left: 4px solid var(--danger-color);
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .logs-table {
+    display: block;
+    overflow-x: auto;
+  }
+  
+  .date-range-selector {
+    flex-direction: column;
+  }
+  
+  .date-range-selector label {
+    margin-top: 10px;
+  }
+}
