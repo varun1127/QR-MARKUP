@@ -1,5 +1,5 @@
 import React from 'react';
-import '../styles/loading-spinner.css';  // Update import path
+import '../../styles/loading-spinner.css';
 
 const LoadingSpinner = ({ size = 'medium' }) => {
   const sizeClasses = {

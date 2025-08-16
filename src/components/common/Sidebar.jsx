@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import '../styles/sidebar.css';  // Update import path
+import '../../styles/sidebar.css';
 
 const Sidebar = () => {
   const userRole = localStorage.getItem('role');
