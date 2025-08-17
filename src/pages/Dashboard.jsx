@@ -1,32 +1,33 @@
+// src/pages/Dashboard.jsx
 import React from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
-import Navbar from '../components/common/Navbar';
-import Sidebar from '../components/common/Sidebar';
+import { useNavigate } from 'react-router-dom';
 import '../styles/dashboard.css';
 
 const Dashboard = () => {
   const navigate = useNavigate();
-  const userRole = localStorage.getItem('role');
 
-  React.useEffect(() => {
-    // Redirect based on role
-    if (userRole === 'student') {
-      navigate('/dashboard/student');
-    } else if (userRole === 'admin') {
-      navigate('/dashboard/admin');
-    }
-  }, [userRole, navigate]);
+  const handleLogout = () => {
+    // Clear any auth state if needed
+    navigate('/');
+  };
 
   return (
-    <div className="dashboard-layout">
-      <Navbar />
-      
+    <div className="dashboard-container">
+      <nav className="dashboard-navbar">
+        <h2>QRMark Dashboard</h2>
+        <button onClick={handleLogout}>Logout</button>
+      </nav>
+
       <div className="dashboard-content">
-        <Sidebar />
-        
-        <main className="main-content">
-          <Outlet />
-        </main>
+        <h3>Welcome, Admin!</h3>
+        <p>This is your dashboard. You can manage attendance, scan QR codes, and view reports.</p>
+
+        {/* Add cards, charts, or links here */}
+        <div className="dashboard-cards">
+          <div className="card">📅 View Calendar</div>
+          <div className="card">📷 Scan QR</div>
+          <div className="card">📊 Attendance Report</div>
+        </div>
       </div>
     </div>
   );
