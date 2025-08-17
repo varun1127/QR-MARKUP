@@ -1,34 +1,37 @@
-import React from 'react';
-import QRScanner from '../components/Dashboard/QRScanner.jsx'; // ✅ Adjust path if needed
+import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
-  // ✅ This function runs when a QR code is successfully scanned
-  const handleScan = (data) => {
-    console.log('Scanned QR:', data);
+  const role = localStorage.getItem("role");
+  const navigate = useNavigate();
 
-    // 🔧 You can add routing, validation, or toast here
-    // Example: navigate(`/result/${data}`);
-    // Example: toast.success(`Scanned: ${data}`);
+  if (role !== "student") {
+    return <p style={{ textAlign: "center", marginTop: "5rem", color: "red" }}>Access denied. Only students can view this page.</p>;
+  }
+
+  const handleLogout = () => {
+    localStorage.removeItem("role");
+    navigate("/login");
   };
 
   return (
-    <div style={{ padding: '2rem' }}>
-      {/* ✅ Keep your existing dashboard layout here */}
-      <h2>Welcome to the Dashboard</h2>
-
-      {/* ✅ QR Scanner Section */}
-      <div style={{
-        marginTop: '2rem',
-        padding: '1rem',
-        border: '1px solid #ccc',
-        borderRadius: '8px',
-        maxWidth: '400px',
-        marginLeft: 'auto',
-        marginRight: 'auto',
-        backgroundColor: '#f9f9f9'
-      }}>
-        <QRScanner onScanSuccess={handleScan} />
-      </div>
+    <div style={{ padding: "2rem", fontFamily: "Poppins, sans-serif" }}>
+      <h2>Welcome, Student</h2>
+      <p>This is your student dashboard. You can view your attendance, profile, or notifications here.</p>
+      <button
+        onClick={handleLogout}
+        style={{
+          backgroundColor: "#0055ff",
+          color: "white",
+          padding: "0.5rem 1rem",
+          borderRadius: "6px",
+          border: "none",
+          cursor: "pointer",
+          marginTop: "1rem",
+        }}
+      >
+        Logout
+      </button>
     </div>
   );
 };
