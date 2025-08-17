@@ -1,42 +1,56 @@
 // src/pages/Login.jsx
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import '../styles/Login.css';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { authenticate } from "../services/authService";
+import "../styles/Login.css";
+import logo from "../assets/college-logo.png"; // ✅ your logo
 
-const Login = () => {
+function Login() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const navigate = useNavigate();
-  const [role, setRole] = useState('student');
 
   const handleLogin = (e) => {
     e.preventDefault();
-    // Add role-based logic here if needed
-    navigate('/dashboard');
+
+    if (!email || !password) {
+      setError("Please fill in all fields.");
+      return;
+    }
+
+    const user = authenticate(email, password);
+    if (user) {
+      navigate("/dashboard");
+    } else {
+      setError("Invalid credentials.");
+    }
   };
 
   return (
     <div className="login-container">
-      <div className="login-box slide-in">
-        <img
-          src="/assets/college-logo.png"
-          alt="College Logo"
-          className="college-logo"
+      <form className="login-form" onSubmit={handleLogin}>
+        <img src={logo} alt="College Logo" className="login-logo" />
+        <h2 className="login-heading">Login</h2>
+        <input
+          type="email"
+          placeholder="Enter your email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className="login-input"
         />
-        <h2>Welcome to QRMark</h2>
-        <form onSubmit={handleLogin}>
-          <select value={role} onChange={(e) => setRole(e.target.value)} required>
-            <option value="student">Student</option>
-            <option value="admin">Admin</option>
-          </select>
-          <input type="email" placeholder="Email" required />
-          <input type="password" placeholder="Password" required />
-          <button type="submit">Login</button>
-        </form>
-        <div className="forgot-password">
-          <a href="#">Forgot Password?</a>
-        </div>
-      </div>
+        <input
+          type="password"
+          placeholder="Enter your password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className="login-input"
+        />
+        {error && <p className="login-error">{error}</p>}
+        <button type="submit" className="login-button">Login</button>
+      </form>
     </div>
   );
-};
+}
 
 export default Login;

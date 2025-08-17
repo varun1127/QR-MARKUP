@@ -1,80 +1,71 @@
 /* src/pages/Login.css */
 
 .login-container {
+  background-color: white;
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  background: linear-gradient(to right, #4e54c8, #8f94fb);
-  font-family: 'Segoe UI', sans-serif;
-  overflow: hidden;
+  padding: 20px;
 }
 
-.login-box {
+.login-form {
   background-color: white;
-  padding: 2rem;
-  border-radius: 12px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
   text-align: center;
-  width: 350px;
-  opacity: 0;
-  transform: translateY(50px);
-  animation: slideUp 0.6s ease-out forwards;
 }
 
-@keyframes slideUp {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.login-logo {
+  width: 120px;
+  margin-bottom: 20px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.college-logo {
-  width: 80px;
-  margin-bottom: 1rem;
+.login-heading {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #333;
 }
 
-.login-box h2 {
-  margin-bottom: 1.5rem;
-  color: #4e54c8;
-}
-
-form select,
-form input {
+.login-input {
   width: 100%;
-  padding: 0.75rem;
-  margin-bottom: 1rem;
+  padding: 12px 15px;
+  margin-bottom: 15px;
   border: 1px solid #ccc;
-  border-radius: 8px;
-  font-size: 1rem;
+  border-radius: 6px;
+  font-size: 16px;
+  outline: none;
+  transition: border-color 0.3s ease;
 }
 
-form button {
+.login-input:focus {
+  border-color: #007bff;
+}
+
+.login-button {
   width: 100%;
-  padding: 0.75rem;
-  background-color: #4e54c8;
+  padding: 12px;
+  background-color: #007bff;
   color: white;
   border: none;
-  border-radius: 8px;
-  font-size: 1rem;
+  border-radius: 6px;
+  font-size: 16px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
-form button:hover {
-  background-color: #3b42a1;
+.login-button:hover {
+  background-color: #0056b3;
 }
 
-.forgot-password {
-  margin-top: 1rem;
-}
-
-.forgot-password a {
-  color: #4e54c8;
-  text-decoration: none;
-  font-size: 0.9rem;
-}
-
-.forgot-password a:hover {
-  text-decoration: underline;
+.login-error {
+  color: red;
+  font-size: 14px;
+  margin-bottom: 10px;
 }

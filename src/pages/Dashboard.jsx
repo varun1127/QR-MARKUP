@@ -1,36 +1,24 @@
 // src/pages/Dashboard.jsx
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import '../styles/dashboard.css';
+import React from "react";
+import { getCurrentUser, logout } from "../services/authService";
+import { useNavigate } from "react-router-dom";
 
-const Dashboard = () => {
+function Dashboard() {
+  const user = getCurrentUser();
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    // Clear any auth state if needed
-    navigate('/');
+    logout();
+    navigate("/login");
   };
 
   return (
-    <div className="dashboard-container">
-      <nav className="dashboard-navbar">
-        <h2>QRMark Dashboard</h2>
-        <button onClick={handleLogout}>Logout</button>
-      </nav>
-
-      <div className="dashboard-content">
-        <h3>Welcome, Admin!</h3>
-        <p>This is your dashboard. You can manage attendance, scan QR codes, and view reports.</p>
-
-        {/* Add cards, charts, or links here */}
-        <div className="dashboard-cards">
-          <div className="card">📅 View Calendar</div>
-          <div className="card">📷 Scan QR</div>
-          <div className="card">📊 Attendance Report</div>
-        </div>
-      </div>
+    <div className="dashboard">
+      <h2>Welcome, {user?.role === "admin" ? "Admin" : "Student"}!</h2>
+      <p>You are logged in as: {user?.email}</p>
+      <button onClick={handleLogout}>Logout</button>
     </div>
   );
-};
+}
 
 export default Dashboard;
