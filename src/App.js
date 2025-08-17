@@ -10,8 +10,13 @@ function App() {
   return (
     <Router>
       <Routes>
+        {/* ✅ Public Home Page */}
         <Route path="/" element={<Home />} />
+
+        {/* ✅ Public Login Page */}
         <Route path="/login" element={<Login />} />
+
+        {/* 🔐 Protected Dashboard */}
         <Route
           path="/dashboard"
           element={
@@ -20,6 +25,8 @@ function App() {
             </ProtectedRoute>
           }
         />
+
+        {/* ❌ Catch-all for unknown routes */}
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
