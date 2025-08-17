@@ -1,2 +1,2 @@
 #LOGIN PAGE
-![alt text](assets/image.png)
+![alt text](src/assets/image.png)
