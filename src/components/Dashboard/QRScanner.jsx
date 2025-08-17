@@ -1,82 +1,47 @@
-import React, { useState, useEffect } from 'react';
-import QrScanner from 'qr-scanner';
-import './dashboard.css';
+// src/components/dashboard/QRScanner.jsx
+import React, { useEffect, useRef } from 'react';
+import { Html5Qrcode } from 'html5-qrcode';
 
 const QRScanner = ({ onScanSuccess }) => {
-  const [scanner, setScanner] = useState(null);
-  const [camera, setCamera] = useState(null);
-  const [availableCameras, setAvailableCameras] = useState([]);
-  const [error, setError] = useState(null);
-  const videoRef = React.createRef();
+  const qrCodeRegionId = 'qr-reader';
+  const html5QrCodeRef = useRef(null);
 
   useEffect(() => {
-    const qrScanner = new QrScanner(
-      videoRef.current,
-      result => {
-        onScanSuccess(result);
-        qrScanner.stop();
-      },
-      {
-        preferredCamera: 'environment',
-        highlightScanRegion: true,
-        highlightCodeOutline: true,
+    html5QrCodeRef.current = new Html5Qrcode(qrCodeRegionId);
+
+    Html5Qrcode.getCameras().then((devices) => {
+      if (devices && devices.length) {
+        const cameraId = devices[0].id;
+        html5QrCodeRef.current.start(
+          cameraId,
+          {
+            fps: 10,
+            qrbox: { width: 250, height: 250 },
+          },
+          (decodedText) => {
+            onScanSuccess(decodedText);
+            html5QrCodeRef.current.stop(); // Stop after first successful scan
+          },
+          (errorMessage) => {
+            // Optional: console.log(`Scan error: ${errorMessage}`);
+          }
+        );
       }
-    );
-
-    setScanner(qrScanner);
-
-    qrScanner.start().then(() => {
-      qrScanner.getCameras().then(cameras => {
-        setAvailableCameras(cameras);
-        setCamera(cameras[0]?.id || 'environment');
-      });
-    }).catch(err => setError(err.message));
+    });
 
     return () => {
-      if (qrScanner) {
-        qrScanner.destroy();
+      if (html5QrCodeRef.current) {
+        html5QrCodeRef.current.stop().then(() => {
+          html5QrCodeRef.current.clear();
+        });
       }
     };
-  }, []);
-
-  const handleCameraChange = (cameraId) => {
-    if (scanner) {
-      scanner.setCamera(cameraId);
-      setCamera(cameraId);
-    }
-  };
+  }, [onScanSuccess]);
 
   return (
-    <div className="qr-scanner-container">
+    <div>
       <h3>Scan QR Code</h3>
-      {error && <div className="error-message">{error}</div>}
-      
-      <div className="scanner-viewport">
-        <video ref={videoRef} className="scanner-video" />
-      </div>
-      
-      {availableCameras.length > 1 && (
-        <div className="camera-selector">
-          <label>Select Camera:</label>
-          <select 
-            value={camera} 
-            onChange={(e) => handleCameraChange(e.target.value)}
-          >
-            {availableCameras.map(cam => (
-              <option key={cam.id} value={cam.id}>
-                {cam.label}
-              </option>
-            ))}
-          </select>
-        </div>
-      )}
-      
-      <button 
-        className="scan-button"
-        onClick={() => scanner && scanner.start()}
-      >
-        Start Scanning
-      </button>
+      <div id={qrCodeRegionId} style={{ width: '300px', margin: 'auto' }} />
     </div>
   );
 };
